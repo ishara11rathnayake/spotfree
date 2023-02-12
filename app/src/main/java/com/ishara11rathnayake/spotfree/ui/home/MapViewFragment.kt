@@ -39,14 +39,23 @@ class MapViewFragment : Fragment() {
 
         initiateMapFragment()
 
-
         mapViewModel!!.parkingData.observe(viewLifecycleOwner, Observer { slotsData ->
             addMarkers(slotsData)
         })
 
-        // on checked listener for the switch
-        binding.onlyUnoccupiedSwitch.setOnCheckedChangeListener { _, isChecked ->
+        binding.filterButton.setOnClickListener {
+            // get checked status of the show only unoccupied switch
+            val isChecked = binding.onlyUnoccupiedSwitch.isChecked
+            // get radius value
+            val radius = if (binding.radiusEditText.text.toString() == "") {
+                null
+            } else {
+                binding.radiusEditText.text.toString().toInt() * 1000
+            }
+
+            // set two values to the view model
             mapViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
+            mapViewModel!!.setRadius(radius)
         }
 
         return root

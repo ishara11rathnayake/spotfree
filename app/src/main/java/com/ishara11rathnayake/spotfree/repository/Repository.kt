@@ -10,8 +10,9 @@ import kotlinx.coroutines.Dispatchers.Main
 object Repository {
     var job: CompletableJob? = null
 
-    fun getParkingData(parkingStatus: String?): LiveData<ParkingSlotsData> {
+    fun getParkingData(parkingStatus: String?, radius: Int?): LiveData<ParkingSlotsData> {
         job = Job()
+
         return object: LiveData<ParkingSlotsData>() {
             override fun onActive() {
                 super.onActive()
@@ -19,10 +20,14 @@ object Repository {
                     CoroutineScope(IO + theJob).launch {
                         println("parkingStatus: $parkingStatus")
                         try {
-                            val parkingData: ParkingSlotsData = if (parkingStatus == null) {
+                            val parkingData: ParkingSlotsData = if (parkingStatus == null && radius == null) {
                                 RetrofitBuilder.apiService.getParkingSlots()
+                            } else if (parkingStatus != null && radius == null) {
+                                RetrofitBuilder.apiService.filterByStatus(parkingStatus)
+                            } else if (parkingStatus == null) {
+                                RetrofitBuilder.apiService.filterByRadius("-37.8136, 144.9631, $radius")
                             } else {
-                                RetrofitBuilder.apiService.filterParkingData(parkingStatus)
+                                RetrofitBuilder.apiService.filterParkingData(parkingStatus, "-37.8136, 144.9631, $radius")
                             }
                             withContext(Main) {
                                 value = parkingData
@@ -30,24 +35,6 @@ object Repository {
                             }
                         } catch (e: Exception) {
                             println("Error: ${e.message}")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun filterParkingData(parkingStatus: String?): LiveData<ParkingSlotsData> {
-        job = Job()
-        return object: LiveData<ParkingSlotsData>() {
-            override fun onActive() {
-                super.onActive()
-                job?.let{ theJob ->
-                    CoroutineScope(IO + theJob).launch {
-                        val parkingData = RetrofitBuilder.apiService.filterParkingData(parkingStatus)
-                        withContext(Main) {
-                            value = parkingData
-                            theJob.complete()
                         }
                     }
                 }

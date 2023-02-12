@@ -4,4 +4,6 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="show_only_unoccupied">Show Only Unoccupied</string>
+    <string name="filter">Filter</string>
+    <string name="radius_kilometers">Radius (km)</string>
 </resources>

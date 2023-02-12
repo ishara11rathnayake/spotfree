@@ -11,14 +11,22 @@ class MapViewModel : ViewModel() {
 
 
     private val _parkingStatus: MutableLiveData<String?> = MutableLiveData()
+    private val _radius: MutableLiveData<Int?> = MutableLiveData()
 
+    // call getParkingData() method in the repository after two values are set
     val parkingData: LiveData<ParkingSlotsData> = Transformations
-        .switchMap(_parkingStatus){
-            Repository.getParkingData(it)
+        .switchMap(_parkingStatus) { parkingStatus ->
+            Transformations.switchMap(_radius) { radius ->
+                Repository.getParkingData(parkingStatus, radius)
+            }
         }
 
     fun setParkingStatus(parkingStatus: String?) {
         _parkingStatus.value = parkingStatus
+    }
+
+    fun setRadius(radius: Int?) {
+        _radius.value = radius
     }
 
     fun cancelJobs(){
