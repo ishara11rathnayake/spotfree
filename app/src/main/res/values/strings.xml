@@ -8,4 +8,6 @@
     <string name="radius_kilometers">Radius (km)</string>
     <string name="map">Map</string>
     <string name="list">List</string>
+    <string name="parking_zone">Parking Zone :</string>
+    <string name="last_updated">Last Updated :</string>
 </resources>

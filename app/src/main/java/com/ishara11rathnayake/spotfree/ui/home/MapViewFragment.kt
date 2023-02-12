@@ -35,7 +35,7 @@ class MapViewFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
         mapViewModel =
-            ViewModelProvider(this).get(MapViewModel::class.java)
+            ViewModelProvider(this)[MapViewModel::class.java]
 
         initiateMapFragment()
 
@@ -43,22 +43,28 @@ class MapViewFragment : Fragment() {
             addMarkers(slotsData)
         })
 
-        binding.filterButton.setOnClickListener {
-            // get checked status of the show only unoccupied switch
-            val isChecked = binding.onlyUnoccupiedSwitch.isChecked
-            // get radius value
-            val radius = if (binding.radiusEditText.text.toString() == "") {
-                null
-            } else {
-                binding.radiusEditText.text.toString().toInt() * 1000
-            }
+        filterData()
 
-            // set two values to the view model
-            mapViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
-            mapViewModel!!.setRadius(radius)
+        binding.filterButton.setOnClickListener {
+            filterData()
         }
 
         return root
+    }
+
+    private fun filterData () {
+        // get checked status of the show only unoccupied switch
+        val isChecked = binding.onlyUnoccupiedSwitch.isChecked
+        // get radius value
+        val radius = if (binding.radiusEditText.text.toString() == "") {
+            null
+        } else {
+            binding.radiusEditText.text.toString().toInt() * 1000
+        }
+
+        // set two values to the view model
+        mapViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
+        mapViewModel!!.setRadius(radius)
     }
 
     private fun initiateMapFragment() {

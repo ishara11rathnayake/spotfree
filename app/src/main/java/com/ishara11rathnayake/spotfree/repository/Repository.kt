@@ -18,7 +18,6 @@ object Repository {
                 super.onActive()
                 job?.let{ theJob ->
                     CoroutineScope(IO + theJob).launch {
-                        println("parkingStatus: $parkingStatus")
                         try {
                             val parkingData: ParkingSlotsData = if (parkingStatus == null && radius == null) {
                                 RetrofitBuilder.apiService.getParkingSlots()

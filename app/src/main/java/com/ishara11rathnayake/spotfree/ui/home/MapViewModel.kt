@@ -9,7 +9,6 @@ import com.ishara11rathnayake.spotfree.repository.Repository
 
 class MapViewModel : ViewModel() {
 
-
     private val _parkingStatus: MutableLiveData<String?> = MutableLiveData()
     private val _radius: MutableLiveData<Int?> = MutableLiveData()
 
