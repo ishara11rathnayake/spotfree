@@ -15,38 +15,38 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ishara11rathnayake.spotfree.R
-import com.ishara11rathnayake.spotfree.databinding.FragmentHomeBinding
+import com.ishara11rathnayake.spotfree.databinding.FragmentMapBinding
 import com.ishara11rathnayake.spotfree.models.ParkingSlotsData
 
-class HomeFragment : Fragment() {
+class MapViewFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
     private var mapFragment: SupportMapFragment? = null
     private var googleMap: GoogleMap? = null
-    private var homeViewModel: HomeViewModel? = null
+    private var mapViewModel: MapViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        mapViewModel =
+            ViewModelProvider(this).get(MapViewModel::class.java)
 
         initiateMapFragment()
 
 
-        homeViewModel!!.parkingData.observe(viewLifecycleOwner, Observer { slotsData ->
+        mapViewModel!!.parkingData.observe(viewLifecycleOwner, Observer { slotsData ->
             addMarkers(slotsData)
         })
 
         // on checked listener for the switch
         binding.onlyUnoccupiedSwitch.setOnCheckedChangeListener { _, isChecked ->
-            homeViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
+            mapViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
         }
 
         return root
@@ -99,6 +99,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        homeViewModel?.cancelJobs()
+        mapViewModel?.cancelJobs()
     }
 }

@@ -3,14 +3,11 @@ package com.ishara11rathnayake.spotfree
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ishara11rathnayake.spotfree.databinding.ActivityMainBinding
-import com.ishara11rathnayake.spotfree.ui.home.HomeViewModel
 
 class MainActivity : AppCompatActivity() {
 

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.ishara11rathnayake.spotfree.ui.home.HomeFragment"
+        android:name="com.ishara11rathnayake.spotfree.ui.home.MapViewFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

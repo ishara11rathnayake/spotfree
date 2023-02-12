@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.ishara11rathnayake.spotfree.models.ParkingSlotsData
 import com.ishara11rathnayake.spotfree.repository.Repository
 
-class HomeViewModel : ViewModel() {
+class MapViewModel : ViewModel() {
 
 
     private val _parkingStatus: MutableLiveData<String?> = MutableLiveData()
