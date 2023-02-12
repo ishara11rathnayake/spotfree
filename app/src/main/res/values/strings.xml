@@ -6,4 +6,6 @@
     <string name="show_only_unoccupied">Show Only Unoccupied</string>
     <string name="filter">Filter</string>
     <string name="radius_kilometers">Radius (km)</string>
+    <string name="map">Map</string>
+    <string name="list">List</string>
 </resources>
