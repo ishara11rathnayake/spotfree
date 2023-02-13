@@ -41,6 +41,7 @@ class ListViewFragment : Fragment() {
 
         listViewModel!!.parkingData.observe(viewLifecycleOwner, Observer { slotsData ->
             println("Data: ${slotsData.records}")
+            binding.progressBar.visibility = View.GONE
             adapter.setParkingList(slotsData.records)
         })
 
@@ -69,6 +70,8 @@ class ListViewFragment : Fragment() {
         // set two values to the view model
         listViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
         listViewModel!!.setRadius(radius)
+
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

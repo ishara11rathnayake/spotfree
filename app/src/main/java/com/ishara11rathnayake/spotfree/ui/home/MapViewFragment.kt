@@ -40,6 +40,7 @@ class MapViewFragment : Fragment() {
         initiateMapFragment()
 
         mapViewModel!!.parkingData.observe(viewLifecycleOwner, Observer { slotsData ->
+            binding.progressBar2.visibility = View.GONE
             addMarkers(slotsData)
         })
 
@@ -65,6 +66,7 @@ class MapViewFragment : Fragment() {
         // set two values to the view model
         mapViewModel!!.setParkingStatus(if (isChecked) "Unoccupied" else null)
         mapViewModel!!.setRadius(radius)
+        binding.progressBar2.visibility = View.VISIBLE
     }
 
     private fun initiateMapFragment() {
